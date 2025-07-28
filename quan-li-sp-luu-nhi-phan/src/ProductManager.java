@@ -64,4 +64,16 @@ public class ProductManager {
             System.out.println("Product not found with ID: " + id);
         }
     }
+
+    // xoa san pham
+    public void deleteProductById(int id) {
+        List <Product> products = readProductsFromFile();
+        boolean removed = products.removeIf(product -> product.getId() == id);
+        if (removed) {
+            writeProductsToFile(products);
+            System.out.println("Sản phẩm có ID " + id + " đã được xóa.");
+        } else {
+            System.out.println("Không tìm thấy sản phẩm có ID " + id + ".");
+        }
+    }
 }

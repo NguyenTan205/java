@@ -4,16 +4,30 @@ public class Main {
     public static void main(String[] args) {
         ProductManager manager = new ProductManager();
         Scanner sc  = new Scanner(System.in);
-        int choice;
+        int choice = -1;
 
-        do {
+        while (true) {
             System.out.println("------PRODUCT MANAGER MENU------");
             System.out.println("1. Add product");
             System.out.println("2. Display all products");
             System.out.println("3. Search product by ID");
+            System.out.println("4. Delete product by ID");
             System.out.println("0. Thoat chương trình");
             System.out.println("Nhập lựa chọn của bạn: ");
-            choice = Integer.parseInt(sc.nextLine());
+
+            String input = sc.nextLine().trim();
+
+            if (input.isEmpty()) {
+                System.out.println("Bạn chưa nhập gì cả. Vui lòng nhập lại.");
+                continue;
+            }
+
+            try {
+                choice = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Vui lòng nhập một số hợp lệ.");
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -36,15 +50,20 @@ public class Main {
                     break;
                 case 3:
                     System.out.println("Enter product ID to search: ");
-                    int searchid = sc.nextInt();
-                    manager.searchProductById(searchid);
+                    int searchId = Integer.parseInt(sc.nextLine());
+                    manager.searchProductById(searchId);
+                    break;
+                case 4:
+                    System.out.println("Enter product ID to delete: ");
+                    int deleteId = Integer.parseInt(sc.nextLine());
+                    manager.deleteProductById(deleteId);
                     break;
                 case 0:
                     System.out.println("Thank you for using our application");
-                    break;
+                    return;
                 default:
                     System.out.println("Lựa chọn của bạn không hợp lệ !!!");
             }
-        } while (choice != 0);
+        }
     }
 }
