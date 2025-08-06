@@ -40,8 +40,30 @@ public class Main {
             // xây dựng các case
             switch (choice) {
                 case 1:
+
+                    LoadingAnimation loading = new LoadingAnimation();
+                    Thread loadingThread = new Thread(loading);
+
+                    loadingThread.start(); // bắt đầu loading
+
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+
+                    // dừng loading sau khi xong
+                    loading.stop();
+                    try {
+                        loadingThread.join(); // Đảm bảo Thread dừng trước khi in kết quả
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+
+                    // hiển thị danh sách sinh viên
                     System.out.println("Danh sách nhân viên: ");
                     service.displayAllEmployees();
+                    System.out.println("Danh sách nhân viên đã tải xong");
                     break;
                 case 2:
                     service.addEmployee(EmployeeInput.inputFullTimeEmployee(sc));
@@ -75,9 +97,13 @@ public class Main {
                 case 0:
                     System.out.println("Bạn có chắc muốn thoát? (Y/N): ");
                     String confirm = sc.nextLine().trim();
-                    if (confirm.equalsIgnoreCase("Y"));
-                    System.out.println("Thank you. See you again!");
-                    System.exit(0);
+                    if (confirm.equalsIgnoreCase("Y")){
+                        System.out.println("Thank you. See you again!");
+                        System.exit(0);
+                    } else {
+                        System.out.println("Tiếp tục chương trình");
+                        choice = -1;
+                    }
                     break;
                 default:
                     System.out.println("Lựa chọn của bạn không hợp lệ !!!");

@@ -82,7 +82,7 @@ public class EmployeeService {
         boolean found = false;
         for (Employee employee : employeeList) {
             if (employee.getId() == id) {
-                System.out.println("Đã tìm thấy nhân viên có ID: " + id + ": " + employee);
+                System.out.println("Đã tìm thấy nhân viên " + employee);
                 found = true;
             }
         }
