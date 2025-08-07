@@ -1,4 +1,3 @@
-import java.util.List;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -20,6 +19,7 @@ public class Main {
             System.out.println("6. Tìm kiếm nhân viên theo ID");
             System.out.println("7. Xếp thứ tự nhân viên theo mức lương giảm dần");
             System.out.println("8. Tổng số lương của nhân viên");
+            System.out.println("9. Xuất dữ liệu nhân viên ra CSV");
             System.out.println("0. Thoát chương trình");
             System.out.println("------------------------------------------------");
             System.out.println("Nhập lựa chọn của bạn: ");
@@ -94,12 +94,15 @@ public class Main {
                 case 8:
                     System.out.println("Tổng số lương nhân viên của công ty là: " + String.format("%,.0f", service.calculateTotalSalary()));
                     break;
+                case 9:
+                    Exporter csvExporter = new CSVExporter();
+                    csvExporter.exportData(repository.getAll(), "employees.csv");
+                    break;
                 case 0:
                     System.out.println("Bạn có chắc muốn thoát? (Y/N): ");
                     String confirm = sc.nextLine().trim();
                     if (confirm.equalsIgnoreCase("Y")){
                         System.out.println("Thank you. See you again!");
-                        System.exit(0);
                     } else {
                         System.out.println("Tiếp tục chương trình");
                         choice = -1;
